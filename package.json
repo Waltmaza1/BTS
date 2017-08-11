@@ -1,0 +1,24 @@
+{
+  "name": "bts",
+  "version": "1.0.0",
+  "description": "Build Tracking System by The Wonder Nerds",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Waltmaza1/BTS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Waltmaza1/BTS/issues"
+  },
+  "homepage": "https://github.com/Waltmaza1/BTS#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4"
+  }
+}
