@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
     id int NOT NULL AUTO_INCREMENT,
     user_id int NOT NULL,
-    station_completed int NOT NULL,
+    station_completed VARCHAR(25) NOT NULL,
     shipped_flag BOOLEAN NOT NULL,
     date_created DATE NOT NULL,
     sku VARCHAR(15),
