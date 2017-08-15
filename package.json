@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Waltmaza1/BTS#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "method-override": "^2.3.9"
   }
 }
