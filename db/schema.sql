@@ -16,7 +16,7 @@ CREATE TABLE users (
     city VARCHAR(50) NOT NULL,
     state VARCHAR(50) NOT NULL,
     zip_code INT NOT NULL,
-    phone_number INT NOT NULL,
+    phone_number BIGINT NOT NULL,
     type int(10) NOT NULL,
     PRIMARY KEY (id)
 );
