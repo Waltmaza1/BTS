@@ -109,5 +109,21 @@ module.exports = function(app) {
     });
   });
 
+	app.get("/api/quality-report", function(req, res) {
+    db.quality.findAll({
+      attributes: ['sku', [db.sequelize.fn('count', db.sequelize.col('sku')), 'count']],
+      where : {
+        passed : true
+      },
+      group: ['sku']
+    }).then(function(qualitydata) {
+      if(qualitydata.length!=0){
+
+        res.json(qualitydata);
+
+      }
+    });
+  });
+
 };
 
