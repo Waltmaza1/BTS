@@ -133,5 +133,22 @@ module.exports = function(app) {
     });
   });
 
+
+   app.post("/api/new-order", function(req, res) {
+    if((userID == 1) || (userID == 0)){
+      db.orders.create({
+        user_id: userID,
+        station_completed: req.body.station_completed,
+        shipped_flag: req.body.shipped_flag,
+        sku: req.body.sku
+      }).then(function(neworder) {
+        res.json(neworder);
+      })
+      .catch(function(err) {
+      console.log(err);
+    });
+    }
+  });
+
 };
 
