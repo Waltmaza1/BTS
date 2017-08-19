@@ -1,5 +1,8 @@
 var db = require("../models");
 var nodemailer = require('nodemailer');
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
+var userID;
 
 function sendMail(email, message) {
 
@@ -149,6 +152,45 @@ module.exports = function(app) {
     });
     }
   });
+
+  app.post("/login", function(req, res) {
+    console.log("request: "+ req.body.username);
+    db.users.findOne({
+      where: {
+        user_name: req.body.username
+      }
+    }
+    ).then(function(user) {
+      userID = "";
+      let myPlaintextPassword = req.body.password;
+      comparePassword(res, user.password, myPlaintextPassword);
+      function comparePassword(res, hash, myPlaintextPassword){
+        bcrypt.compare(myPlaintextPassword, hash, function(err, response) {
+        // res == true 
+        console.log("response after comaprison: "+res);
+        if(response == true){
+          if(user.type == 0){
+            userID = user.id;
+            res.redirect('/products');
+          }
+          else if(user.type == 1){
+            res.redirect('/orders');
+          }
+        }
+        else {
+          console.log("password doesn't match");
+          res.redirect('/');
+        }
+
+      });
+      }
+    })
+    .catch(function(err) {
+      res.json(err);
+      console.log(err);
+    });
+  });
+
 
 };
 
