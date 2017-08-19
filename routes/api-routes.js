@@ -93,5 +93,21 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get("/api/ordersShipped-report", function(req, res) {
+    db.orders.findAll({
+      attributes: ['sku', [db.sequelize.fn('count', db.sequelize.col('sku')), 'count']],
+      where : {
+        shipped_flag : true
+      },
+      group: ['sku']
+    }).then(function(ordershipped) {
+      if(ordershipped.length!=0){
+
+        res.json(ordershipped);
+
+      }
+    });
+  });
+
 };
 
