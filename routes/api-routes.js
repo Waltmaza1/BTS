@@ -125,5 +125,13 @@ module.exports = function(app) {
     });
   });
 
+	app.get("/api/products", function(req, res) {
+    db.products.findAll({}).then(function(productdata) {
+      if(productdata.length!=0){
+        res.json(productdata);
+      }
+    });
+  });
+
 };
 
