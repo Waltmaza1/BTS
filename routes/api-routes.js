@@ -49,5 +49,36 @@ module.exports = function(app) {
 			res.redirect("/")
 		})
 	});
+
+	app.get("/api/orders-ready", function(req, res) {
+
+    db.orders.findAll({
+    	where : {
+        shipped_flag : true
+      }
+    }).then(function(orderdata) {
+      if(orderdata.length!=0){
+        db.users.findAll({
+         where : {
+          id : orderdata[0].user_id
+        }
+      }).then(function(userdata){
+      	console.log(JSON.stringify(userdata));
+      	console.log(userdata[0].email);
+        var note = "<br><br><br>Thank You<br>BTS"
+        var message = "<h3>Item Shipped!</h3><h4>Order details</h4>"+
+        "Name: "+userdata[0].first_name + " " + userdata[0].last_name+
+        "<br>"+"Address: "+ userdata[0].street+", "+ userdata[0].city +
+        "<br>"+"Item: " + orderdata[0].sku + note;
+
+        sendMail(userdata[0].email, message);
+        res.json(userdata)
+
+      });
+    }
+  });
+
+  });
+
 };
 
