@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/Waltmaza1/BTS#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "method-override": "^2.3.9",
     "mysql2": "^1.4.1",
+    "nodemailer": "^4.0.1",
     "sequelize": "^4.6.0"
   }
 }

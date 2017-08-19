@@ -34,23 +34,29 @@ function sendMail(email, message) {
 }
 
 module.exports = function(app) {
-
+	
 	app.post("/api/newuser", function(req, res) {
-		db.users.create({
-			first_name: req.body.firstname,
-			last_name: req.body.lastname,
-			user_name: req.body.username,
-			password: req.body.password,
-			email: req.body.email,
-			street: req.body.street,
-			city: req.body.city,
-			state: req.body.state,
-			zip_code: req.body.zipcode,
-			phone_number: req.body.phone,
-			type: req.body.usertype
-		}).then(function(userdata){
-			res.redirect("/")
-		})
+		var myPlaintextPassword = req.body.password;
+		hashPassword(myPlaintextPassword);
+		function hashPassword(myPlaintextPassword){
+			bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+				db.users.create({
+					first_name: req.body.firstname,
+					last_name: req.body.lastname,
+					user_name: req.body.username,
+					password: hash,
+					email: req.body.email,
+					street: req.body.street,
+					city: req.body.city,
+					state: req.body.state,
+					zip_code: req.body.zipcode,
+					phone_number: req.body.phone,
+					type: req.body.usertype
+				}).then(function(userdata){
+					res.redirect("/")
+				});
+			});
+		}
 	});
 
 	app.get("/api/orders-ready", function(req, res) {
@@ -97,99 +103,99 @@ module.exports = function(app) {
 	});
 
 	app.get("/api/ordersShipped-report", function(req, res) {
-    db.orders.findAll({
-      attributes: ['sku', [db.sequelize.fn('count', db.sequelize.col('sku')), 'count']],
-      where : {
-        shipped_flag : true
-      },
-      group: ['sku']
-    }).then(function(ordershipped) {
-      if(ordershipped.length!=0){
+		db.orders.findAll({
+			attributes: ['sku', [db.sequelize.fn('count', db.sequelize.col('sku')), 'count']],
+			where : {
+				shipped_flag : true
+			},
+			group: ['sku']
+		}).then(function(ordershipped) {
+			if(ordershipped.length!=0){
 
-        res.json(ordershipped);
+				res.json(ordershipped);
 
-      }
-    });
-  });
+			}
+		});
+	});
 
 	app.get("/api/quality-report", function(req, res) {
-    db.quality.findAll({
-      attributes: ['sku', [db.sequelize.fn('count', db.sequelize.col('sku')), 'count']],
-      where : {
-        passed : true
-      },
-      group: ['sku']
-    }).then(function(qualitydata) {
-      if(qualitydata.length!=0){
+		db.quality.findAll({
+			attributes: ['sku', [db.sequelize.fn('count', db.sequelize.col('sku')), 'count']],
+			where : {
+				passed : true
+			},
+			group: ['sku']
+		}).then(function(qualitydata) {
+			if(qualitydata.length!=0){
 
-        res.json(qualitydata);
+				res.json(qualitydata);
 
-      }
-    });
-  });
+			}
+		});
+	});
 
 	app.get("/api/products", function(req, res) {
-    db.products.findAll({}).then(function(productdata) {
-      if(productdata.length!=0){
-        res.json(productdata);
-      }
-    });
-  });
+		db.products.findAll({}).then(function(productdata) {
+			if(productdata.length!=0){
+				res.json(productdata);
+			}
+		});
+	});
 
 
-   app.post("/api/new-order", function(req, res) {
-    if((userID == 1) || (userID == 0)){
-      db.orders.create({
-        user_id: userID,
-        station_completed: req.body.station_completed,
-        shipped_flag: req.body.shipped_flag,
-        sku: req.body.sku
-      }).then(function(neworder) {
-        res.json(neworder);
-      })
-      .catch(function(err) {
-      console.log(err);
-    });
-    }
-  });
+	app.post("/api/new-order", function(req, res) {
+		if((userID == 1) || (userID == 0)){
+			db.orders.create({
+				user_id: userID,
+				station_completed: req.body.station_completed,
+				shipped_flag: req.body.shipped_flag,
+				sku: req.body.sku
+			}).then(function(neworder) {
+				res.json(neworder);
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+		}
+	});
 
-  app.post("/login", function(req, res) {
-    console.log("request: "+ req.body.username);
-    db.users.findOne({
-      where: {
-        user_name: req.body.username
-      }
-    }
-    ).then(function(user) {
-      userID = "";
-      let myPlaintextPassword = req.body.password;
-      comparePassword(res, user.password, myPlaintextPassword);
-      function comparePassword(res, hash, myPlaintextPassword){
-        bcrypt.compare(myPlaintextPassword, hash, function(err, response) {
+	app.post("/login", function(req, res) {
+		console.log("request: "+ req.body.username);
+		db.users.findOne({
+			where: {
+				user_name: req.body.username
+			}
+		}
+		).then(function(user) {
+			userID = "";
+			let myPlaintextPassword = req.body.password;
+			comparePassword(res, user.password, myPlaintextPassword);
+			function comparePassword(res, hash, myPlaintextPassword){
+				bcrypt.compare(myPlaintextPassword, hash, function(err, response) {
         // res == true 
         console.log("response after comaprison: "+res);
         if(response == true){
-          if(user.type == 0){
-            userID = user.id;
-            res.redirect('/products');
-          }
-          else if(user.type == 1){
-            res.redirect('/orders');
-          }
+        	if(user.type == 0){
+        		userID = user.id;
+        		res.redirect('/products');
+        	}
+        	else if(user.type == 1){
+        		res.redirect('/orders');
+        	}
         }
         else {
-          console.log("password doesn't match");
-          res.redirect('/');
+        	console.log("password doesn't match");
+        	res.redirect('/');
         }
 
-      });
-      }
-    })
-    .catch(function(err) {
-      res.json(err);
-      console.log(err);
     });
-  });
+			}
+		})
+		.catch(function(err) {
+			res.json(err);
+			console.log(err);
+		});
+	});
 
 
 };
