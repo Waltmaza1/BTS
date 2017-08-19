@@ -21,7 +21,6 @@ CREATE TABLE users (
     PRIMARY KEY (id)
 );
 
-
 DROP TABLE IF EXISTS orders;
 
 CREATE TABLE orders (
@@ -78,3 +77,4 @@ CREATE TABLE quality (
     date_created DATE NOT NULL,
     PRIMARY KEY (id)
     );
+ 

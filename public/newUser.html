@@ -73,41 +73,58 @@
 			<div class="mdl-cell mdl-cell--4-col"></div>
 			<div class="mdl-cell mdl-cell--4-col">
 				<h4>Please fill out the user details</h4>
-				<form action="#">
+				<form method = "post" action="/api/newuser">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="firstname">
+						<input class="mdl-textfield__input" type="text" name="firstname" id="firstname">
 						<label class="mdl-textfield__label" for="firstname">First Name</label>
 					</div><br>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="lastname">
+						<input class="mdl-textfield__input" type="text" name="lastname" id="lastname">
 						<label class="mdl-textfield__label" for="lastname">Last Name</label>
 					</div><br>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email">
+						<input class="mdl-textfield__input" type="text" name="username" id="username">
+						<label class="mdl-textfield__label" for="username">Username</label>
+					</div><br>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="password" name="password" id="password">
+						<label class="mdl-textfield__label" for="password">Password</label>
+					</div><br>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" name="email" id="email">
 						<label class="mdl-textfield__label" for="email">Email</label>
 					</div><br>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="street">
+						<input class="mdl-textfield__input" type="text"  name="street" id="street">
 						<label class="mdl-textfield__label" for="street">Street</label>
 					</div><br>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="city">
+						<input class="mdl-textfield__input" type="text" name ="city" id="city">
 						<label class="mdl-textfield__label" for="city">City</label>
 					</div><br>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="state">
+						<input class="mdl-textfield__input" type="text" name="state" id="state">
 						<label class="mdl-textfield__label" for="state">State</label>
 					</div><br>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="zipcode">
+						<input class="mdl-textfield__input" type="text" name="zipcode" pattern="-?[0-9]*(\.[0-9]+)?" id="zipcode">
 						<label class="mdl-textfield__label" for="zipcode">Zipcode</label>
 						<span class="mdl-textfield__error">Input is not a number!</span>
 					</div><br>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="phone">
+						<input class="mdl-textfield__input" type="text" name="phone" pattern="-?[0-9]*(\.[0-9]+)?" id="phone">
 						<label class="mdl-textfield__label" for="phone">Phone</label>
 						<span class="mdl-textfield__error">Input is not a number!</span>
 					</div><br>
+					<label class="mdl-radio mdl-js-radio" for="user" value = 0>
+						<input type="radio" id="user" name="usertype" class="mdl-radio__button" value = 0 checked>
+						<span class="mdl-radio__label">User</span>
+					</label>
+
+					<label class="mdl-radio mdl-js-radio" for="admin">
+						<input type="radio" id="admin" name="usertype" class="mdl-radio__button">
+						<span class="mdl-radio__label" value = 1 >Admin</span>
+					</label><br>
 					<!-- Raised button with ripple -->
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
 						Submit
@@ -181,4 +198,5 @@
 </div>
 
 </body>
+
 </html>
