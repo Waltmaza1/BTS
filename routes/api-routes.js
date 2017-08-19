@@ -5,11 +5,11 @@ function sendMail(email, message) {
 
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'buildtrackingsystem@gmail.com',
-        pass: 'build123'
-      }
+    	service: 'gmail',
+    	auth: {
+    		user: 'buildtrackingsystem@gmail.com',
+    		pass: 'build123'
+    	}
     });
 
     // setup email data with unicode symbols
@@ -19,16 +19,16 @@ function sendMail(email, message) {
         subject: 'Order Shipped ✔', // Subject line
         html: message, // html body
         
-      };
+    };
 
     // send mail with defined transport object
     transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return console.log(error);
-      }
-      console.log('Message %s sent: %s', info.messageId, info.response);
+    	if (error) {
+    		return console.log(error);
+    	}
+    	console.log('Message %s sent: %s', info.messageId, info.response);
     });
-  }
+}
 
 module.exports = function(app) {
 
@@ -52,33 +52,46 @@ module.exports = function(app) {
 
 	app.get("/api/orders-ready", function(req, res) {
 
-    db.orders.findAll({
-    	where : {
-        shipped_flag : true
-      }
-    }).then(function(orderdata) {
-      if(orderdata.length!=0){
-        db.users.findAll({
-         where : {
-          id : orderdata[0].user_id
-        }
-      }).then(function(userdata){
-      	console.log(JSON.stringify(userdata));
-      	console.log(userdata[0].email);
-        var note = "<br><br><br>Thank You<br>BTS"
-        var message = "<h3>Item Shipped!</h3><h4>Order details</h4>"+
-        "Name: "+userdata[0].first_name + " " + userdata[0].last_name+
-        "<br>"+"Address: "+ userdata[0].street+", "+ userdata[0].city +
-        "<br>"+"Item: " + orderdata[0].sku + note;
+		db.orders.findAll({
+			where : {
+				shipped_flag : true
+			}
+		}).then(function(orderdata) {
+			if(orderdata.length!=0){
+				db.users.findAll({
+					where : {
+						id : orderdata[0].user_id
+					}
+				}).then(function(userdata){
+					console.log(JSON.stringify(userdata));
+					console.log(userdata[0].email);
+					var note = "<br><br><br>Thank You<br>BTS"
+					var message = "<h3>Item Shipped!</h3><h4>Order details</h4>"+
+					"Name: "+userdata[0].first_name + " " + userdata[0].last_name+
+					"<br>"+"Address: "+ userdata[0].street+", "+ userdata[0].city +
+					"<br>"+"Item: " + orderdata[0].sku + note;
 
-        sendMail(userdata[0].email, message);
-        res.json(userdata)
+					sendMail(userdata[0].email, message);
+					res.json(userdata)
 
-      });
-    }
-  });
+				});
+			}
+		});
 
-  });
+	});
+
+	app.get("/api/orderssku-report", function(req, res) {
+		db.orders.findAll({
+			attributes: ['sku', [db.sequelize.fn('count', db.sequelize.col('sku')), 'count']],
+			group: ['sku']
+		}).then(function(orderpersku) {
+			if(orderpersku.length!=0){
+
+				res.json(orderpersku);
+
+			}
+		});
+	});
 
 };
 
