@@ -1,7 +1,8 @@
 var express = require("express");
 var methodOverride = require("method-override");
 var bodyParser = require("body-parser");
-var login = require('./routes/api-routes.js');
+var apiRoutes = require('./routes/api-routes.js');
+var htmlRoutes = require('./routes/html-routes.js');
 var app = express();
 var db = require("./models");
 var PORT = process.env.PORT || 3000;
@@ -18,7 +19,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-login(app);
+apiRoutes(app);
+htmlRoutes(app);
 
 
 db.sequelize.sync({}).then( function(){
