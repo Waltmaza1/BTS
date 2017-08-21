@@ -1,0 +1,51 @@
+<script src="https://code.jquery.com/jquery.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<div class="container">
+<div class="jumbotron" style="text-align: center;">
+	<h1>Shipping</h1>
+</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+			<div class="panel-heading" style="text-align: center;"><h2>Orders for shipping</h2>
+				<div class="panel-body">
+					<table class="table">
+						<tr>
+							<th style="text-align: center;">First Name</th>
+							<th style="text-align: center;">Last Name</th>
+							<th style="text-align: center;">Station Completed</th>
+							<th style="text-align: center">Order Date</th>
+							<th style="text-align: center;">SKU</th>
+							<th style="text-align: center;">Shipped</th>
+							<th style="text-align: center;">Process</th>
+						</tr>
+						{{#each data}}
+							{{#unless this.shipped_flag}}
+						<tr>
+							<td>{{this.first_name}}</td>
+							<td>{{this.last_name}}</td>
+							<td>{{this.station_completed}}</td>
+							<td>{{this.date_created}}</td>
+							<td>{{this.sku}}</td>
+							<td>{{this.shipped_flag}}</td>
+							<td>
+								<form action="/warehouse/{{this.order_id}}" method="GET">
+								<input type="hidden" name="id" value="{{this.order_id}}">
+								<button type="submit">Process Order</button>
+								</form>
+							</td>
+						</tr>
+							{{/unless}}
+						{{/each}}
+					</table>
+					<a href="/quality">PROCEED to QUALITY STATION</a>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

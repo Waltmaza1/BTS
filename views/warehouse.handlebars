@@ -1,0 +1,47 @@
+
+
+<script src="https://code.jquery.com/jquery.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<div class="container">
+<div class="jumbotron" style="text-align: center;">
+	<h1>Order Processing Screen</h1>
+</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+			<div class="panel-heading" style="text-align: center;"><h2>Scan Device Serial Number into the Order</h2>
+				<div class="panel-body">
+					<table class="table">
+						<tr>
+							<th style="text-align: center;">Order Number</th>
+							<th style="text-align: center;">Previous Station</th>
+							<th style="text-align: center;">Order Date</th>
+							<th style="text-align: center">Ordered SKU</th>
+							<th style="text-align: center;">Scan Device</th>
+						</tr>
+						{{#each data}}
+						<tr>
+							<td>{{this.orders_id}}</td>
+							<td>{{this.station_completed}}</td>
+							<td>{{this.date_created}}</td>
+							<td>{{this.products_sku}}</td>
+							<td>
+								<form action="/warehouse-submit/{{this.orders_id}}?_method=PUT" method="POST">
+								<input type="text" name="scan" autofocus="">
+								<input type="hidden" name="id" value="{{this.orders_id}}">
+								<button>Submit</button>
+								</form>
+							</td>
+						</tr>
+						{{/each}}
+					</table>
+					<a href="/allOrders">BACK to OPEN ORDERS</a>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
