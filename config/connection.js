@@ -1,12 +1,20 @@
+//-----------------
+//Require statements
+//-----------------
 var mysql = require("mysql");
+var connection;
 
-var connection = mysql.createConnection({
+if(process.env.JAWSDB_URL){
+	connection = mysql.createConnection(process.env.JAWSDB_URL);
+}
+else {
+connection = mysql.createConnection({
 	database: "build_tracker",
 	user: "root",
-	password: "Bartsera1984",
+	password: "password",
 	hostname: "localhost"
 });
-
+};
 
 //-----------------
 //Establish connection
