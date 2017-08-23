@@ -22,10 +22,11 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.5",
     "method-override": "^2.3.9",
     "mysql": "^2.14.1",
-    "mysql2": "^1.4.1",
+    "mysql2": "^1.4.0",
     "nodemailer": "^4.0.1",
-    "sequelize": "^4.6.0"
+    "sequelize": "^4.5.0"
   }
 }
