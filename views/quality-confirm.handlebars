@@ -6,7 +6,7 @@
 <div class="jumbotron" style="text-align: center;">
 	<h1>Quality Control</h1>
 </div>
-{{#each data}}
+
 </div>
 <div class="container">
 	<div class="row">
@@ -14,21 +14,32 @@
 			<div class="panel panel-default">
 			<div class="panel-heading" style="text-align: center;"><h2>Please Confirm Quality for Device: {{serial_id}}</h2>
 				<div class="panel-body">
+				{{#each data}}
 					<table class="table">
 						<th style="text-align: center;">SKU: {{products_sku}}</th>
 						<th style="text-align: center;">Order Number: {{orders_id}}</th>
 						<th style="text-align: center;">Previous Station: {{station_name}}</th>
 					</table>
 					<h3>Does this device meet all quality standards?</h3>
-					<form action="/quality-confirm/" method="GET">
-					<input type="text" name="scan" autofocus="">
-					<button>SUBMIT</button>	
+					<form action="/quality-confirm-insert/{{serial_id}}/{{products_sku}}/{{orders_id}}?_method=PUT" method="POST">
+					
+					<label class="mdl-radio mdl-js-radio" for="fail">
+						<input type="radio" id="fail" name="optradio" class="mdl-radio__button" value=0 >
+						<span class="mdl-radio__label">FAIL</span>
+					</label>
+
+					<label class="mdl-radio mdl-js-radio" for="pass">
+						<input type="radio" id="pass" name="optradio" class="mdl-radio__button" value=1 checked>
+						<span class="mdl-radio__label">PASS</span>
+					</label>
+					<br>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">SUBMIT</button>	
 					</form><br>
 					<a href="/allOrders">BACK to OPEN ORDERS</a>
+					{{/each}}
 				</div>
 			</div>
 			</div>
 		</div>
 	</div>
 </div>
-{{/each}}

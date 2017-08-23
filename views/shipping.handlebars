@@ -2,40 +2,27 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <div class="container">
-<div class="jumbotron" style="text-align: center;">
-	<h1>Shiped Orders</h1>
-</div>
+	<div class="jumbotron" style="text-align: center;">
+		<h1>Orders ready for shipping</h1>
+	</div>
 </div>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
-			<div class="panel-heading" style="text-align: center;">
-				<div class="panel-body">
-					<table class="table">
-						<tr>
-							<th style="text-align: center;">Order Number</th>
-							<th style="text-align: center;">First Name</th>
-							<th style="text-align: center;">Last Name</th>
-							<th style="text-align: center">Email</th>
-							<th style="text-align: center;">Order Sku</th>
-						</tr>
-						{{#each data}}
-						<tr>
-							<td>{{this.orders_id}}</td>
-							<td>{{this.firstname}}</td>
-							<td>{{this.lastname}}</td>
-							<td>{{this.email}}</td>
-							<td>{{this.products_sku}}</td>
-							
-							</td>
-						</tr>
-						{{/each}}
-					</table>
-					<a href="/allOrders">BACK to OPEN ORDERS</a>
+				<div class="panel-heading" style="text-align: center;">
+					<div class="panel-body">
+						<div class="panel-body">
+							<h3>SCAN DEVICE</h3>
+							<form action="/shipping-update/"
+							method="GET">
+							<input type="text" name="scan" autofocus="">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">SUBMIT</button>    
+							</form><br>
+							<a href="/allOrders">BACK to OPEN ORDERS</a>
+						</div>
+					</div>
 				</div>
-			</div>
 			</div>
 		</div>
 	</div>
-</div>
