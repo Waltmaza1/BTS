@@ -1,0 +1,13 @@
+#productAdd{
+	width: 550px;
+	height: 230px;
+	background-color: #E8EDEE;
+	border: 1px solid black;
+},
+#dialogcontent{
+	font-size: 20px;
+	color: black;
+},
+.alertmsg{
+	color: red;
+}

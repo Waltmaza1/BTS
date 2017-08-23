@@ -1,17 +1,11 @@
 $(document).ready(function(){
-	$.get("/api/products", function(data) {
-		console.log(data);
-		for(var i=0;i<data.length;i++){
-			$("#products").append("<tr><td>"+ data[i].product_name+"</td>"+
-				"<td>"+ data[i].description +"</td>"+"<td><button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored orderBtn'"+
-				" sku="+data[i].sku + " pname="+data[i].product_name +">"+"Order</button></td></tr>");
-		}
-
-	});
-
+	
 	function orderAlert(product){
-		
-		alert("Order has been placed for the item: "+ product);
+		$("#dialogcontent").html("<p>Product Name : "+product+"</p>");
+		dialog.showModal();
+		dialog.querySelector('.close').addEventListener('click', function() {
+			dialog.close();
+		});
 	}
 
 	function insertOrder(event) {
@@ -25,6 +19,18 @@ $(document).ready(function(){
 		
 	}
 	$(document).on("click", ".orderBtn", insertOrder);
+
+
+
+	var dialog = document.querySelector('dialog');
+	var showDialogButton = document.querySelector('#show-dialog');
+	if (! dialog.showModal) {
+		dialogPolyfill.registerDialog(dialog);
+	}
+
+	dialog.querySelector('.close').addEventListener('click', function() {
+		dialog.close();
+	});
 
 });
 

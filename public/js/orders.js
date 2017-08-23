@@ -159,51 +159,62 @@ $(document).ready(function(){
 		$.get(reportUrl, function(data) {
 			if(reportUrl == "/api/quality-report"){
 				var total = 0;
-				var skuarr = [];
+				var skuarr = [0, 0, 0];
 				for(var i=0;i<data.length;i++){
-					skuarr.push(data[i].count);
+					if(data[i].sku == "ABC123"){
+						skuarr[0] = data[i].count;
+					}
+					else if(data[i].sku == "LMN123"){
+						skuarr[1] = data[i].count;
+					}
+					else if(data[i].sku == "XYZ123"){
+						skuarr[2] = data[i].count;
+					}
 					total +=  data[i].count;
 				}
 				console.log(total);
-				if(data.length == 3){
+				
 					let p_sku0 = (skuarr[0]/total)*100;
 					let p_sku1 = (skuarr[1]/total)*100;
 					let p_sku2 = (skuarr[2]/total)*100;
 					let title = "Total number of products that passed the quality test: "+ total;
 					qualityReport(p_sku0,p_sku1,p_sku2, title);
-				}
+				
 			}
 			else if(reportUrl == "/api/ordersShipped-report"){
+				
 				let c1, c2, c3;
 				c1 = c2 = c3 = 0;
 				console.log(data);
 				for(var i=0;i<data.length;i++){
-					if(data[i].sku == "ABC123"){
+					if(data[i].sku == 1){
 						c1 = data[i].count;
 					}
-					else if(data[i].sku == "LMN123"){
+					else if(data[i].sku == 2){
 						c2 = data[i].count;
 					}
-					else if(data[i].sku == "XYZ123"){
+					else if(data[i].sku == 3){
 						c3 = data[i].count;
 					}
 				}
-				ordersShipped(c1, c2,c3);
+				ordersShipped(c1, c2, c3);
 			}
 			else if(reportUrl == "/api/orderssku-report"){
-				let c1, c2, c3;
+				console.log()
+				var c1, c2, c3;
 				c1 = c2 = c3 = 0;
 				for(var i=0;i<data.length;i++){
-					if(data[i].sku == "ABC123"){
+					if(data[i].sku == 1){
 						c1 = data[i].count;
 					}
-					else if(data[i].sku == "LMN123"){
+					else if(data[i].sku == 2){
 						c2 = data[i].count;
 					}
-					else if(data[i].sku == "XYZ123"){
+					else if(data[i].sku == 3){
 						c3 = data[i].count;
 					}
 				}
+				console.log("c1,c2,c3:" + c1,c2,c3);
 				ordersPerSkuReport(c1,c2,c3);
 			}
 		});
