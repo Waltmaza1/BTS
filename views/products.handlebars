@@ -1,0 +1,35 @@
+
+<br><br>
+<div class="container">
+	<div style="text-align: center;">
+		<h1>PRODUCTS AVAILABLE</h1>
+	</div>
+	</div>
+	<table class="mdl-data-table mdl-js-data-table" align="center">
+		<thead>
+			<tr>
+			<th class="mdl-data-table__cell--non-numeric">Product Name</th>
+			<th>Description</th>
+			<th></th>
+			</tr>
+		</thead>
+		<tbody id="products">
+			{{#each data}}
+				<tr>
+					<td>{{this.product_name}}</td>
+					<td>{{this.description}}</td>
+					<td><button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored orderBtn' sku={{this.id}} pname={{this.product_name}}>Order</button></td>
+					</tr>
+			{{/each}}
+		</tbody>
+		</table>
+		<dialog class="mdl-dialog" id="productAdd">
+			<h4 class="mdl-dialog__title">Order Placed!</h4>
+			<div class="mdl-dialog__content" id="dialogcontent">
+			</div>
+			<div class="mdl-dialog__actions">
+				<button id="closeBtn" type="button" class="mdl-button close" >Ok</button>
+			</div>
+		</dialog>
+<script src="/js/products.js" type="text/javascript"></script>
+	

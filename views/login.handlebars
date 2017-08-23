@@ -1,0 +1,35 @@
+<br><br><br><br><br>
+
+		<div class="mdl-grid">
+			<div class="mdl-cell mdl-cell--4-col"></div>
+			<div class="mdl-cell mdl-cell--4-col">
+				<form action="/login" method="POST">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="username" name="username">
+						<label class="mdl-textfield__label" for="username">Username</label>
+					</div><br>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="password" id="password" name="password">
+						<label class="mdl-textfield__label" for="password">Password</label>
+					</div><br>
+					<a href="/newUser">New User</a>
+					<!-- Raised button with ripple -->
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="loginBtn" type="submit">
+					Login
+					</button>
+				</form>
+				
+			</div>
+			<div class="mdl-cell mdl-cell--4-col"></div>
+		</div>
+	</div>
+	{{#if passwordmismatch}}
+    <h4 align="center" class="alertmsg">{{passwordmismatch}}</h4>
+    {{/if}}
+    {{#if usernotexisting}}
+    <h4 align="center" class="alertmsg">{{usernotexisting}}</h4>
+    {{/if}}
+
+	<br><br><br><br><br><br><br>
+
+	
