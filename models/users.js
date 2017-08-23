@@ -44,6 +44,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       defaultValue: false
     }
-  });
+  },
+  { 
+    timestamps: false,
+  }
+  );
   return users;
 };

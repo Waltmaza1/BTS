@@ -12,13 +12,21 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
+    date_created:{
+      type: DataTypes.DATE,
+      allowNull:false
+    },
     sku: {
       type: DataTypes.STRING,
       allowNull: false
     },
     serial_id: {
       type: DataTypes.STRING
-    },
-  });
+    }
+  },
+  { 
+    timestamps: false,
+  }
+  );
   return orders;
 };
