@@ -3,15 +3,22 @@ var path = require("path");
 
 module.exports = function(app) {
 	app.get("/", function(req, res) {
-		res.sendFile(path.join(__dirname, "../public/index.html"));
+		res.render("login");
 	});
-	app.get("/orders", function(req, res) {
-		res.sendFile(path.join(__dirname, "../public/orders.html"));
+	app.get("/admin", function(req, res) {
+		res.render("admin");
 	});
-	app.get("/products", function(req, res) {
-		res.sendFile(path.join(__dirname, "../public/products.html"));
-	});
+
 	app.get("/newUser", function(req, res) {
-		res.sendFile(path.join(__dirname, "../public/newUser.html"));
+		res.render("newUser");
 	});
+
+	app.get("/reports", function(req, res) {
+		res.render("report");
+	});
+
+	app.get("/shipping", function(req,res){
+        res.render("shipping");
+    });
+	
 }
