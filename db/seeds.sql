@@ -1,22 +1,5 @@
 USE build_tracker;
 
-insert into users (first_name, last_name, email, pword, street, city, state, zip_code, phone_number, access)
-values ("Tyrone", "Smiley", "freemyppl@gmail.com", "ts123", "123 Main St.", "Dallas", "TX", "75219", "21455551212", "1");
-
-insert into users (first_name, last_name, email, pword, street, city, state, zip_code, phone_number, access)
-values ("Robert", "Weitman", "happy@gmail.com", "rw123", "123 Main St.", "Dallas", "TX", "75219", "21455551212", "1");
-
-insert into users (first_name, last_name, email, pword, street, city, state, zip_code, phone_number, access)
-values ("Walter", "Mazariego", "wallyl@gmail.com", "wm123", "123 Main St.", "Dallas", "TX", "75219", "21455551212", "1");
-
-insert into users (first_name, last_name, email, pword, street, city, state, zip_code, phone_number, access)
-values ("Nithya", "Sam", "nithya@gmail.com", "ns123", "123 Main St.", "Dallas", "TX", "75219", "21455551212", "1");
-
-insert into users (first_name, last_name, email, pword, street, city, state, zip_code, phone_number, access)
-values ("Matt", "Vella", "mv@gmail.com", "mv123", "123 Main St.", "Dallas", "TX", "75219", "21455551212", "1");
-
-insert into users (first_name, last_name, email, pword, street, city, state, zip_code, phone_number, access)
-values ("Collin", "McDonell", "collin@gmail.com", "cm123", "123 Main St.", "Dallas", "TX", "75219", "21455551212", "1");
 
 ***Product SEEDS
 
@@ -93,7 +76,3 @@ insert into kits (serial_id, sku)
 values ("31102082", "3");
 
 
-***Orders SEEDS
-
-insert into orders (user_id, station_completed, shipped_flag, date_created, sku)
-values ("1", "0", "0", NOW(), "3");
